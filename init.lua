@@ -292,8 +292,11 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
-      require('which-key').add {
+      local which_key = require 'which-key'
+      which_key.setup()
+
+      -- NOTE: Applying changes as per new which key setup
+      which_key.add {
         {
           { '<leader>c', group = '[C]ode' },
           { '<leader>d', group = '[D]ocument' },
