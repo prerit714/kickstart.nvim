@@ -95,9 +95,8 @@ return {
       return keys
     end,
   },
-  -- My custom plugin
+  -- NOTE: My custom plugin for CP
   {
-
     'prerit714/suno.nvim',
     name = 'suno',
     lazy = false,
@@ -105,9 +104,5 @@ return {
       require('suno').setup()
     end,
   },
-  -- REST Client
-  {
-    'mistweaverco/kulala.nvim',
-    opts = {},
-  },
+  -- TODO: Add a rest client here later on
 }
