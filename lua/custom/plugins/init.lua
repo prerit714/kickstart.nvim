@@ -95,4 +95,19 @@ return {
       return keys
     end,
   },
+  -- My custom plugin
+  {
+
+    'prerit714/suno.nvim',
+    name = 'suno',
+    lazy = false,
+    config = function()
+      require('suno').setup()
+    end,
+  },
+  -- REST Client
+  {
+    'mistweaverco/kulala.nvim',
+    opts = {},
+  },
 }
