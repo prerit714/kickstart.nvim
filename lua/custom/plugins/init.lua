@@ -104,5 +104,4 @@ return {
       require('suno').setup()
     end,
   },
-  -- TODO: Add a rest client here later on
 }
