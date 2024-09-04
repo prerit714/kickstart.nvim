@@ -56,30 +56,34 @@ return {
           '<leader>H',
           function()
             require('harpoon'):list():add()
+            print '[Harpoon] Harpooned current buffer'
           end,
-          desc = 'Harpoon File',
+          desc = '[Harpoon] Harpooned current buffer',
         },
         {
           '<leader>h',
           function()
             local harpoon = require 'harpoon'
             harpoon.ui:toggle_quick_menu(harpoon:list())
+            print '[Harpoon] Show Quick Menu'
           end,
-          desc = 'Harpoon Quick Menu',
+          desc = '[Harpoon] Show Quick Menu',
         },
         {
           'H',
           function()
             require('harpoon'):list():prev()
+            print '[Harpoon] Goto previous buffer'
           end,
-          desc = 'Harpoon left',
+          desc = '[Harpoon] Goto previous buffer',
         },
         {
           'L',
           function()
             require('harpoon'):list():next()
+            print '[Harpoon] Goto next buffer'
           end,
-          desc = 'Harpoon right',
+          desc = '[Harpoon] Goto next buffer',
         },
       }
 
@@ -88,8 +92,9 @@ return {
           '<leader>' .. i,
           function()
             require('harpoon'):list():select(i)
+            print('[Harpoon] Go to buffer', i)
           end,
-          desc = 'Harpoon to File ' .. i,
+          desc = '[Harpoon] Go to buffer' .. i,
         })
       end
       return keys

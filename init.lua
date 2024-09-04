@@ -950,6 +950,21 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
+  -- Using tree sitter context
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    name = 'treesitter-context',
+    lazy = false,
+    opts = {},
+    keys = {
+      {
+        '<leader>tc',
+        '<cmd>TSContextToggle<cr>',
+        desc = 'Toggle tree-sitter context',
+      },
+    },
+  },
+
   -- Using Oil as a file explorer
   {
     'stevearc/oil.nvim',
