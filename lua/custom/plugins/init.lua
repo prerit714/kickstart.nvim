@@ -95,8 +95,4 @@ return {
       return keys
     end,
   },
-  -- NOTE: Adding a REST client
-  {
-    'rest-nvim/rest.nvim',
-  },
 }
