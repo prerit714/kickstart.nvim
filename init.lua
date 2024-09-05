@@ -694,6 +694,11 @@ require('lazy').setup({
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
+            -- NOTE: https://github.com/neovim/nvim-lspconfig/pull/3232
+            if server_name == 'tsserver' then
+              server_name = 'ts_ls'
+            end
+
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
