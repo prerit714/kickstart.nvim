@@ -110,7 +110,7 @@ vim.keymap.set('i', 'kj', '<Esc>', {
 })
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -877,6 +877,7 @@ require('lazy').setup({
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'buffer' },
           { name = 'path' },
         },
       }
@@ -987,7 +988,7 @@ require('lazy').setup({
   {
     'stevearc/oil.nvim',
     -- Optional dependencies
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = vim.g.have_nerd_font or { 'nvim-tree/nvim-web-devicons' },
     opts = {
       default_file_explorer = true,
     },
