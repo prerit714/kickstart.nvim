@@ -109,6 +109,23 @@ vim.keymap.set('i', 'kj', '<Esc>', {
   silent = true,
 })
 
+-- NOTE: A keymap to toggle wordwrap using a lua function
+function ToggleWrap()
+  if vim.wo.wrap then
+    vim.wo.wrap = false
+    print '[Neovim] Line wrap disabled'
+  else
+    vim.wo.wrap = true
+    print '[Neovim] Line wrap enabled'
+  end
+end
+
+-- Now to register the function
+vim.keymap.set('n', '<leader>u', ':lua ToggleWrap()<CR>', {
+  silent = true,
+  noremap = true,
+})
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
