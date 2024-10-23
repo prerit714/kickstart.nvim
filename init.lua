@@ -96,9 +96,11 @@ vim.opt.wrap = false
 -- NOTE: Showing a vertical bar at 80 char length
 vim.opt.colorcolumn = '80'
 
--- NOTE: Setting up shiftwidth and tabstop
+-- NOTE: Setting up shiftwidth as 2
 vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+
+-- NOTE: Using 4 spaces wide rendering of a single tab
+vim.opt.tabstop = 4
 
 -- NOTE: Setting my preferred keybinds for insert mode
 vim.keymap.set('i', 'jk', '<Esc>', {
