@@ -99,8 +99,11 @@ vim.opt.colorcolumn = '80'
 -- NOTE: Setting up shiftwidth and tabstop
 vim.opt.shiftwidth = 2
 
--- INFO: I like to use 4 spaces for a single tab render
-vim.opt.tabstop = 4
+-- WARN: Two spaces have always felt natural to me since I write a lot of
+-- typescript code. Unless a formatter really forces me to
+
+-- INFO: I like to use 2 spaces for a single tab render
+vim.opt.tabstop = 2
 
 -- NOTE: Setting my preferred keybinds for insert mode
 vim.keymap.set('i', 'jk', '<Esc>', {
