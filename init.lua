@@ -1030,6 +1030,127 @@ require('lazy').setup({
     },
   },
 
+  -- Using vim fugitive instead of lazygit
+  {
+    'tpope/vim-fugitive',
+    lazy = false,
+    config = function()
+      -- NOTE: Write any custom config required here
+    end,
+  },
+
+  -- NOTE: Using trouble
+  {
+    'folke/trouble.nvim',
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = 'Trouble',
+    keys = {
+      {
+        '<leader>xx',
+        '<cmd>Trouble diagnostics toggle<cr>',
+        desc = 'Diagnostics (Trouble)',
+      },
+      {
+        '<leader>xX',
+        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+        desc = 'Buffer Diagnostics (Trouble)',
+      },
+      {
+        '<leader>cs',
+        '<cmd>Trouble symbols toggle focus=false<cr>',
+        desc = 'Symbols (Trouble)',
+      },
+      {
+        '<leader>cl',
+        '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+        desc = 'LSP Definitions / references / ... (Trouble)',
+      },
+      {
+        '<leader>xL',
+        '<cmd>Trouble loclist toggle<cr>',
+        desc = 'Location List (Trouble)',
+      },
+      {
+        '<leader>xQ',
+        '<cmd>Trouble qflist toggle<cr>',
+        desc = 'Quickfix List (Trouble)',
+      },
+    },
+  },
+
+  -- NOTE: Harpoon plugin configuration
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    opts = {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      },
+      settings = {
+        save_on_toggle = true,
+      },
+    },
+    keys = function()
+      local keys = {
+        {
+          '<leader>H',
+          function()
+            require('harpoon'):list():add()
+            print '[Harpoon] Harpooned current buffer'
+          end,
+          desc = '[Harpoon] Harpooned current buffer',
+        },
+        {
+          '<leader>h',
+          function()
+            local harpoon = require 'harpoon'
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+            print '[Harpoon] Show Quick Menu'
+          end,
+          desc = '[Harpoon] Show Quick Menu',
+        },
+        {
+          'H',
+          function()
+            require('harpoon'):list():prev()
+            print '[Harpoon] Goto previous buffer'
+          end,
+          desc = '[Harpoon] Goto previous buffer',
+        },
+        {
+          'L',
+          function()
+            require('harpoon'):list():next()
+            print '[Harpoon] Goto next buffer'
+          end,
+          desc = '[Harpoon] Goto next buffer',
+        },
+      }
+
+      for i = 1, 5 do
+        table.insert(keys, {
+          '<leader>' .. i,
+          function()
+            require('harpoon'):list():select(i)
+            print('[Harpoon] Go to buffer', i)
+          end,
+          desc = '[Harpoon] Go to buffer' .. i,
+        })
+      end
+      return keys
+    end,
+  },
+
+  -- NOTE: My setup for c++ single file competitive programming
+  {
+    'prerit714/suno.nvim',
+    name = 'suno',
+    lazy = false,
+    config = function()
+      require('suno').setup()
+    end,
+  },
+
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
