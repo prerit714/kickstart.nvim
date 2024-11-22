@@ -110,4 +110,10 @@ return {
       require('suno').setup()
     end,
   },
+
+  -- NOTE: Using vim fugitive from now on
+  {
+    'tpope/vim-fugitive',
+    lazy = false,
+  },
 }
