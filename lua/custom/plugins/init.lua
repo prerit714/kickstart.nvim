@@ -100,17 +100,6 @@ return {
       return keys
     end,
   },
-
-  -- NOTE: My setup for c++ single file competitive programming
-  {
-    'prerit714/suno.nvim',
-    name = 'suno',
-    lazy = false,
-    config = function()
-      require('suno').setup()
-    end,
-  },
-
   -- NOTE: Using vim fugitive from now on
   {
     'tpope/vim-fugitive',
