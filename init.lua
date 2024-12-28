@@ -705,7 +705,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
-        java = { { 'google-java-format' } },
+        java = { 'google-java-format', stop_after_first = true },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         cpp = { 'clang-format', stop_after_first = true },
