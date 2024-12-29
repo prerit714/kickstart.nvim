@@ -2,7 +2,11 @@ return {
   -- NOTE: Using trouble
   {
     'folke/trouble.nvim',
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      win = {
+        position = 'right',
+      },
+    },
     cmd = 'Trouble',
     keys = {
       {
