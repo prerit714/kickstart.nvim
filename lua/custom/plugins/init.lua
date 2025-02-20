@@ -120,8 +120,4 @@ return {
       }
     end,
   },
-  -- NOTE: Using github copilot
-  {
-    'github/copilot.vim',
-  },
 }
