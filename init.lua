@@ -680,6 +680,11 @@ require('lazy').setup({
 
         -- NOTE: Enabling biome support
         biome = {},
+
+        -- Stuff for linting
+        vale = {},
+        jsonlint = {},
+        hadolint = {},
       }
 
       -- Ensure the servers and tools above are installed
