@@ -7,8 +7,8 @@ vim.opt.wrap = false
 -- NOTE: Showing a vertical bar at 80 char length
 vim.opt.colorcolumn = '80'
 
--- NOTE: Setting up shiftwidth as 2
-vim.opt.shiftwidth = 2
+-- NOTE: Setting up shiftwidth as 4
+vim.opt.shiftwidth = 4
 
 -- NOTE: Using 4 spaces wide rendering of a single tab
 vim.opt.tabstop = 4
@@ -42,6 +42,26 @@ vim.keymap.set('n', '<leader>u', ':lua ToggleWrap()<CR>', {
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
+-- To control code formatting by a keybind
+vim.g.disable_formatting = true
+
+-- NOTE: A keymap to toggle wordwrap using a lua function
+function ToggleCodeFormatting()
+  if vim.g.disable_formatting then
+    vim.g.disable_formatting = false
+    print '[Neovim] Disabled code formatting'
+  else
+    vim.g.disable_formatting = true
+    print '[Neovim] Enabled code formatting'
+  end
+end
+
+-- Now to register the function
+vim.keymap.set('n', '<leader>bf', ':lua ToggleCodeFormatting()<CR>', {
+  silent = true,
+  noremap = true,
+})
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -51,7 +71,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -89,12 +109,6 @@ vim.opt.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', eol = '↲' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -206,15 +220,7 @@ require('lazy').setup({
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
+    opts = {},
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -740,6 +746,11 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- If globally it is set to disable formatting
+        if vim.g.disable_formatting then
+          return
+        end
+
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -787,12 +798,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -871,14 +882,14 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = 'buffer', group_index = 0 },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-            group_index = 0,
+            group_index = 1,
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'buffer' },
           { name = 'path' },
           { name = 'nvim_lsp_signature_help' },
         },
@@ -1016,11 +1027,11 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   { import = 'custom.plugins' },
   ---@diagnostic disable-next-line: missing-fields
 }, {
