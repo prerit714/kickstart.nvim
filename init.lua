@@ -882,16 +882,16 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'buffer', group_index = 0 },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-            group_index = 1,
+            group_index = 0,
           },
           { name = 'nvim_lsp' },
-          { name = 'luasnip' },
+          { name = 'buffer' },
           { name = 'path' },
           { name = 'nvim_lsp_signature_help' },
+          { name = 'luasnip' },
         },
       }
     end,
