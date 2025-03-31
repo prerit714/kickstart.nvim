@@ -650,6 +650,22 @@ require('lazy').setup({
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- NOTE: This handles "No information available" issue during LSP hover
+          vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
+            config = config or {}
+            config.focus_id = ctx.method
+            if not (result and result.contents) then
+              return
+            end
+            local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+            ---@diagnostic disable-next-line: deprecated
+            markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+            if vim.tbl_isempty(markdown_lines) then
+              return
+            end
+            return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
+          end
         end,
       })
 
