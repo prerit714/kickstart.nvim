@@ -782,28 +782,19 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
+    lazy = false,
     keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
       {
         '<leader>tf',
         function()
-          -- If autoformat is currently disabled for this buffer
+          -- If autoformat is currently disabled for this buffer,
           -- then enable it, otherwise disable it
           if vim.b.disable_autoformat then
             vim.cmd 'FormatEnable'
-            print 'Enabled autoformat for the current buffer'
+            print 'Enabled autoformat for current buffer'
           else
             vim.cmd 'FormatDisable!'
-            print 'Disabled autoformat for the current buffer'
+            print 'Disabled autoformat for current buffer'
           end
         end,
         desc = 'Toggle autoformat for current buffer',
@@ -811,14 +802,14 @@ require('lazy').setup({
       {
         '<leader>tF',
         function()
-          -- If autoformat is currently disabled for this buffer
-          -- then enable it, otherwise disable it
-          if vim.b.disable_autoformat then
+          -- If autoformat is currently disabled globally,
+          -- then enable it globally, otherwise disable it globally
+          if vim.g.disable_autoformat then
             vim.cmd 'FormatEnable'
-            print 'Enabled autoformat for the current buffer'
+            print 'Enabled autoformat globally'
           else
-            vim.cmd 'FormatDisable!'
-            print 'Disabled autoformat for the current buffer'
+            vim.cmd 'FormatDisable'
+            print 'Disabled autoformat globally'
           end
         end,
         desc = 'Toggle autoformat globally',
@@ -827,31 +818,24 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        -- NOTE: Based upon value of disable_autoformat you disable stuff
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
-
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
+        local disable_filetypes = { c = false, cpp = false }
+        return {
+          timeout_ms = 500,
+          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+        }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        python = { 'black' },
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
+        typescriptreact = { { 'prettierd', 'prettier' } },
+        javascriptreact = { { 'prettierd', 'prettier' } },
+        css = { { 'prettierd', 'prettier' } },
+        cs = { 'csharpier' },
       },
     },
     config = function(_, opts)
@@ -859,10 +843,10 @@ require('lazy').setup({
 
       vim.api.nvim_create_user_command('FormatDisable', function(args)
         if args.bang then
-          -- :FormatDisable! disable autoformat for this buffer only
+          -- :FormatDisable! disables autoformat for this buffer only
           vim.b.disable_autoformat = true
         else
-          -- :FormatDisable disable autoformat for this buffer only
+          -- :FormatDisable disables autoformat globally
           vim.g.disable_autoformat = true
         end
       end, {
@@ -874,7 +858,7 @@ require('lazy').setup({
         vim.b.disable_autoformat = false
         vim.g.disable_autoformat = false
       end, {
-        desc = 'Re-enable format-on-save',
+        desc = 'Re-enable autoformat-on-save',
       })
     end,
   },
