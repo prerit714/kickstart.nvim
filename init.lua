@@ -229,6 +229,9 @@ vim.keymap.set('n', '<leader>u', ':lua ToggleWrap()<CR>', {
   noremap = true,
 })
 
+-- Key to open OverseerRun command (allows selecting from all available tasks)
+vim.keymap.set('n', '<leader>to', '<cmd>OverseerRun<CR>', { desc = 'Overseer Run Task' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
