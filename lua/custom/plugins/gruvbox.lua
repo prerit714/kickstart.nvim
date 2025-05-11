@@ -1,8 +1,4 @@
 return {
-  -- Change the name of the colorscheme plugin below, and then
-  -- change the command in the config to whatever the name of that colorscheme is.
-  --
-  -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   'ellisonleao/gruvbox.nvim',
   opts = {},
   name = 'gruvbox',
@@ -14,11 +10,11 @@ return {
       underline = true,
       bold = true,
       italic = {
-        strings = true,
-        emphasis = true,
-        comments = true,
+        strings = false,
+        emphasis = false,
+        comments = false,
         operators = false,
-        folds = true,
+        folds = false,
       },
       strikethrough = true,
       invert_selection = false,
@@ -29,13 +25,10 @@ return {
       contrast = 'hard', -- can be "hard", "soft" or empty string
       palette_overrides = {},
       overrides = {},
-      dim_inactive = false,
+      dim_inactive = true,
       transparent_mode = false,
     }
     vim.o.background = 'dark' -- or "light" for light mode
     vim.cmd [[colorscheme gruvbox]]
-
-    -- You can configure highlights by doing something like:
-    -- vim.cmd.hi 'Comment gui=none'
   end,
 }
