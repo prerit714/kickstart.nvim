@@ -25,7 +25,7 @@ return {
       contrast = 'hard', -- can be "hard", "soft" or empty string
       palette_overrides = {},
       overrides = {},
-      dim_inactive = true,
+      dim_inactive = false,
       transparent_mode = false,
     }
     vim.o.background = 'dark' -- or "light" for light mode
